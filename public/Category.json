@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "name": "Apple",
+        "img": "https://i.ibb.co/Zc9BfY4/apple.png"
+    },
+    {
+        "id": 2,
+        "name": "Samsung",
+        "img": "https://i.ibb.co/CzYDyyJ/samsung.png"
+    },
+    {
+        "id": 3,
+        "name": "One Plus",
+        "img": "https://i.ibb.co/PrGL2QY/one-plus.png"
+    },
+    {
+        "id": 4,
+        "name": "Xiaomi",
+        "img": "https://i.ibb.co/wshdVYW/xiaomi.png"
+    }
+]
