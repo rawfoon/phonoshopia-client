@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import toast from "react-hot-toast";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 
@@ -38,27 +39,55 @@ const Signup = () => {
         .then(res => res.json())
         .then(imgData => {
 			console.log(imgData);
-			setPhotoURL(imgData.url)
+			if(imgData.success){
+
+				setPhotoURL(imgData.data.url)
+				createNewUser()
+			}
 		}
+		
+		
 		)
 
 
-		createUser(email, password)
+		const createNewUser = () =>{
+			createUser(email, password)
 		.then((result) => {
 		  const user = result.user;
 		  console.log(user);
 		  setError("");
 		  updateUser(name, photoURL);
-		  // handleEmailVarification()
-		 
-		  navigate(from, { replace: true });
-  
-		  form.reset();
+		  saveUserToDb()
+		  
+	
 		})
 		.catch((error) => {
 		  console.error(error);
 		  setError(error.message);
 		});
+		}
+
+		const saveUserToDb = ()=> {
+
+			const user ={name, email, photoURL, role};
+			fetch('http://localhost:5000/users', {
+				method: 'POST',
+				headers: {
+					'content-type': 'application/json'
+				},
+				body: JSON.stringify(user)
+			})
+			.then(res => res.json())
+			.then(data =>{
+				console.log(data);
+					  navigate(from, { replace: true });
+					  toast.success('SignUp Successful')
+  
+		  form.reset();
+	
+			})
+		}
+
 	
 
 	
@@ -84,7 +113,7 @@ const Signup = () => {
             />
           </div>
           <div className="space-y-1 text-sm">
-		  <label for="role" className="block dark:text-gray-400">
+		  <label htmlFor="role" className="block dark:text-gray-400">
 		  Buyer or Seller?
             </label>
             
@@ -98,7 +127,7 @@ const Signup = () => {
 		  <input type="file" name='img' className="file-input w-full " required />
 		  </div>
           <div className="space-y-1 text-sm">
-            <label for="email" className="block dark:text-gray-400">
+            <label htmlFor="email" className="block dark:text-gray-400">
               Email
             </label>
             <input
@@ -111,7 +140,7 @@ const Signup = () => {
             />
           </div>
           <div className="space-y-1 text-sm">
-            <label for="password" className="block dark:text-gray-400">
+            <label htmlFor="password" className="block dark:text-gray-400">
               Password
             </label>
             <input
@@ -123,7 +152,7 @@ const Signup = () => {
               className="w-full input px-4 py-3 rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:dark:border-violet-400"
             />
 			<div>
-				{error && <p>{error}</p>}
+				{error && <p className="text-orange-500">{error}</p>}
 			</div>
           </div>
           <button className="block w-full p-3 text-center rounded-sm dark:text-gray-900 dark:bg-violet-400">
