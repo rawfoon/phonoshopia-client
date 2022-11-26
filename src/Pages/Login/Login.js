@@ -1,132 +1,77 @@
-import React, { useContext, useState } from "react";
-import toast from "react-hot-toast";
-import { useNavigate, useLocation } from "react-router-dom";
+import React,{ useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
-import {Link} from 'react-router-dom'
 
-const Signup = () => {
-	const {createUser, updateUser} = useContext(AuthContext)
- 	const [error, setError] = useState("");
-	const [photoURL, setPhotoURL] = useState('')
-	console.log(photoURL);
+const Login = () => {
 
-	 const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
+    const {signIn, setLoading} = useContext(AuthContext)
 
-	const imageHostKey = process.env.REACT_APP_imgbb_key;
-	console.log(imageHostKey);
+    const [error, setError] = useState('')
 
-	const handleSignUp = event => {
+    const navigate = useNavigate()
+    const location = useLocation()
+  
+    const from = location.state?.from?.pathname || '/'
+
+
+    const handleLogin = event => {
 		event.preventDefault()
 		const form = event.target
-		const name = form.name.value
-		const role = form.role.value
-		const img = form.img.files[0]
 		const email = form.email.value
 		const password =form.password.value
-		
-
-		// console.log(name, role,img, email, password);
 
 
-		const formData = new FormData();
-        formData.append('image', img);
-        const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`
-        fetch(url, {
-            method: 'POST',
-            body: formData
-        })
-        .then(res => res.json())
-        .then(imgData => {
-			console.log(imgData);
-			if(imgData.success){
 
-				setPhotoURL(imgData.data.url)
-				createNewUser()
-			}
-		}
-		
-		
-		)
+        signIn(email, password)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        form.reset()
+        setError('')
 
+        const currentUser = {
+          email: user.email
+        }
 
-		const createNewUser = () =>{
-			createUser(email, password)
-		.then((result) => {
-		  const user = result.user;
-		  console.log(user);
-		  setError("");
-		  updateUser(name, photoURL);
-		  saveUserToDb()
-		  
-	
-		})
-		.catch((error) => {
-		  console.error(error);
-		  setError(error.message);
-		});
-		}
+        // get jwt 
 
-		const saveUserToDb = ()=> {
-
-			const user ={name, email, photoURL, role};
-			fetch('http://localhost:5000/users', {
-				method: 'POST',
-				headers: {
-					'content-type': 'application/json'
-				},
-				body: JSON.stringify(user)
-			})
-			.then(res => res.json())
-			.then(data =>{
-				console.log(data);
-					  navigate(from, { replace: true });
-					  toast.success('SignUp Successful')
-  
-		  form.reset();
-	
-			})
-		}
-
-	
-
-	
-	}
+        // fetch(`https://globe-route-travels.vercel.app/jwt`,{
+        //   method: 'POST',
+        //   headers: {
+        //     'content-type': 'application/json'
+        //   },
+        //   body: JSON.stringify(currentUser)
+        // })
+        // .then(res => res.json())
+        // .then(data=>{
+        //   // console.log(data);
+        //   localStorage.setItem('globeRoutTravelToken', data.token)
+          navigate(from, {replace: true})
+        // })
+        // .catch(e => console.error(e))
+        
+          
+          
+        
+      })
+      .catch((error) => {
+        console.error(error)
+        setError(error.message)
+      })
+      .finally(()=>{
+        setLoading(false)
+      })
+    }
 
 
   return (
     <div className="flex pt-10 mt-16 justify-center">
       <div className="w-full max-w-md p-8 space-y-3 rounded-xl dark:bg-gray-900 dark:text-gray-100">
-        <h1 className="text-2xl font-bold text-center">Sign Up</h1>
-        <form onSubmit={handleSignUp} className="space-y-6 ng-untouched ng-pristine ng-valid">
-          <div className="space-y-1 text-sm">
-            <label htmlFor="name" className="block dark:text-gray-400">
-              Name
-            </label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              placeholder="Name"
-			  required
-              className="w-full input px-4 py-3 rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:dark:border-violet-400"
-            />
-          </div>
-          <div className="space-y-1 text-sm">
-		  <label htmlFor="role" className="block dark:text-gray-400">
-		  Buyer or Seller?
-            </label>
-            
-            <select name="role" id="role" className="select select-bordered w-full ">
-             
-              <option value="buyer">Buyer</option>
-              <option value="seller">Seller</option>
-            </select>
-          </div>
-		  <div className="space-y-1 text-sm">
-		  <input type="file" name='img' className="file-input w-full " required />
-		  </div>
+        <h1 className="text-2xl font-bold text-center">Login</h1>
+        <form
+          onSubmit={handleLogin}
+          className="space-y-6 ng-untouched ng-pristine ng-valid"
+        >
           <div className="space-y-1 text-sm">
             <label htmlFor="email" className="block dark:text-gray-400">
               Email
@@ -136,8 +81,7 @@ const Signup = () => {
               name="email"
               id="email"
               placeholder="Email"
-			  required
-              className="w-full input px-4 py-3 rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:dark:border-violet-400"
+              className="w-full px-4 py-3 rounded-md input dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:dark:border-violet-400"
             />
           </div>
           <div className="space-y-1 text-sm">
@@ -149,12 +93,14 @@ const Signup = () => {
               name="password"
               id="password"
               placeholder="Password"
-			  required
-              className="w-full input px-4 py-3 rounded-md dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:dark:border-violet-400"
+              className="w-full px-4 py-3 rounded-md input dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100 focus:dark:border-violet-400"
             />
-			<div>
-				{error && <p className="text-orange-500">{error}</p>}
-			</div>
+            <div className="flex justify-end text-xs dark:text-gray-400">
+              <a>Forgot Password?</a>
+            </div>
+            <div>
+                {error && <p className="text-orange-500">{error}</p>}
+            </div>
           </div>
           <button className="block w-full p-3 text-center rounded-sm dark:text-gray-900 dark:bg-violet-400">
             Sign in
@@ -197,12 +143,9 @@ const Signup = () => {
           </button>
         </div>
         <p className="text-xs text-center sm:px-6 dark:text-gray-400">
-          Already have an account?
-          <Link to='/login'
-            
-            className="underline dark:text-gray-100 ml-1" 
-          >
-            Login
+          Don't have an account?
+          <Link to="/signup" className="underline dark:text-gray-100">
+            Sign up
           </Link>
         </p>
       </div>
@@ -210,4 +153,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default Login;
