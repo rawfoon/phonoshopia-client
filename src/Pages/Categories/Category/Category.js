@@ -1,9 +1,11 @@
 import React from "react";
+import {Link} from 'react-router-dom'
 
 const Category = ({ category }) => {
-  const { img, name } = category;
+  
+  const {id, img, name } = category;
   return (
-    <div >
+    <Link to={`/category/${name}`}>
       <div className="card  bg-base-100 shadow-xl hover:bg-slate-500 ">
         <figure className="px-10 pt-10">
           <img src={img} alt="" className="rounded-xl w-full" />
@@ -16,7 +18,7 @@ const Category = ({ category }) => {
     </div> */}
         </div>
       </div>
-    </div>
+    </Link>
   );
 };
 

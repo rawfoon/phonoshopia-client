@@ -4,6 +4,7 @@ import Category from '../Category/Category';
 const Categories = () => {
 
     const [categories, setCategories] = useState([])
+    // console.log(categories);
 
     useEffect(()=>{
         fetch(`http://localhost:5000/categories`)

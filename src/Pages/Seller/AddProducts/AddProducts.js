@@ -134,7 +134,7 @@ const AddProducts = () => {
         <div>
              <div className="flex mt-16 justify-center">
       <div className="w-full  p-8 space-y-3 rounded-xl dark:bg-gray-900 dark:text-gray-100">
-        <h1 className="text-2xl font-bold text-center mb-5">Sign Up</h1>
+        <h1 className="text-2xl font-bold text-center mb-5">Add a Product</h1>
         <form onSubmit={handleAddProduct} className="space-y-6 ng-untouched ng-pristine ng-valid grid grid-cols-1 md:grid-cols-2 gap-5">
           <div className="space-y-1 text-sm">
             <label htmlFor="name" className="block dark:text-gray-400">
