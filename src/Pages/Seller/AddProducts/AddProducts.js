@@ -14,7 +14,7 @@ const AddProducts = () => {
 
 
     const imageHostKey = process.env.REACT_APP_imgbb_key;
-    console.log(categories);
+    // console.log(categories);
     
 
     useEffect(()=>{
@@ -109,7 +109,7 @@ const AddProducts = () => {
 			})
 			.then(res => res.json())
 			.then(data =>{
-				console.log(data);
+				// console.log(data);
           
         if(data.acknowledged){
 

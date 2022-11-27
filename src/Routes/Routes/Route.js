@@ -8,6 +8,8 @@ import Login from "../../Pages/Login/Login";
 import AddProducts from "../../Pages/Seller/AddProducts/AddProducts";
 import MyProducts from "../../Pages/Seller/MyProducts/MyProducts";
 import Signup from "../../Pages/SignUp/Signup";
+import AllUsers from "../../Pages/Users/AllUsers/AllUsers";
+import AdminRoute from "../AdminRoute/AdminRoute";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 
 export const routes = createBrowserRouter([
@@ -29,7 +31,7 @@ export const routes = createBrowserRouter([
             },
             {
                 path: '/category/:category',
-                element: <CategoryDetails></CategoryDetails>,
+                element: <PrivateRoute><CategoryDetails></CategoryDetails></PrivateRoute>,
                 loader: ({params})=> fetch(`http://localhost:5000/category/${params.category}`)
             }
         ]
@@ -40,7 +42,11 @@ export const routes = createBrowserRouter([
         children: [
             {
                 path: '/dashboard',
-                element: <Dashboard></Dashboard>
+                element: <AdminRoute><Dashboard></Dashboard></AdminRoute>
+            },
+            {
+                path: '/dashboard/allusers',
+                element: <AdminRoute><AllUsers></AllUsers></AdminRoute>
             },
             {
                 path: '/dashboard/addproduct',

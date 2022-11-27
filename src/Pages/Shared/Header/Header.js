@@ -1,14 +1,22 @@
+
 import React, {useContext} from 'react';
 import {Link} from 'react-router-dom'
 import { AuthContext } from '../../../contexts/AuthProvider';
+import useAdmin from '../../../hooks/useAdmin';
+import Loading from '../Loading/Loading';
 
 const Header = () => {
-  const {user, logOut} = useContext(AuthContext)
+  const {user, userFromDB, dbUserLoading, logOut} = useContext(AuthContext)
+  
 
+  // if(dbUserLoading){
+  //   return<Loading></Loading>
+  // }
 
+  // console.log('header', userFromDB && userFromDB.role)
+  // const { } = userFromDB
+  
 
-    
-   
 
 
   const handleLogout=()=>{
@@ -48,8 +56,19 @@ const Header = () => {
   </div>
   <div className="navbar-center hidden lg:flex ml-auto mr-5">
   <ul className="menu menu-horizontal  p-0">
+     {
+      (userFromDB && userFromDB.role === 'seller' ) &&
 
-    <li><Link to='/dashboard'>Dashboard</Link></li>
+    <li><Link to='/dashboard/myproducts'>Dashboard</Link></li>
+
+     }        
+
+
+     {
+     (userFromDB && userFromDB.role === 'admin' ) &&
+      <li><Link to='/dashboard/allusers'>Dashboard</Link></li>
+     
+     }
   {user? 
       
       <li><Link to='' onClick={handleLogout}>Logout</Link></li>

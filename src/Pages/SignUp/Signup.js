@@ -3,12 +3,14 @@ import toast from "react-hot-toast";
 import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 import {Link} from 'react-router-dom'
+import Loading from "../Shared/Loading/Loading";
 
 const Signup = () => {
 	const {createUser, updateUser} = useContext(AuthContext)
  	const [error, setError] = useState("");
-	const [photoURL, setPhotoURL] = useState('')
-	console.log(photoURL);
+  const [loading, setLoading] = useState(false)
+	// const [photoURL, setPhotoURL] = useState('')
+	// console.log(photoURL);
 
 	 const navigate = useNavigate();
   const location = useLocation();
@@ -25,6 +27,10 @@ const Signup = () => {
 		const img = form.img.files[0]
 		const email = form.email.value
 		const password =form.password.value
+
+    setLoading(true)
+
+    let photoURL
 		
 
 		// console.log(name, role,img, email, password);
@@ -42,7 +48,8 @@ const Signup = () => {
 			console.log(imgData);
 			if(imgData.success){
 
-				setPhotoURL(imgData.data.url)
+				// setPhotoURL(imgData.data.url)
+        photoURL = imgData.data.url
 				createNewUser()
 			}
 		}
@@ -65,12 +72,14 @@ const Signup = () => {
 		.catch((error) => {
 		  console.error(error);
 		  setError(error.message);
+      setLoading(false)
 		});
 		}
 
 		const saveUserToDb = ()=> {
 
 			const user ={name, email, photoURL, role};
+      console.log(user);
 			fetch('http://localhost:5000/users', {
 				method: 'POST',
 				headers: {
@@ -80,9 +89,10 @@ const Signup = () => {
 			})
 			.then(res => res.json())
 			.then(data =>{
-				console.log(data);
+				// console.log(data);
+        setLoading(false)
+        toast.success('SignUp Successful')
 					  navigate(from, { replace: true });
-					  toast.success('SignUp Successful')
   
 		  form.reset();
 	
@@ -154,6 +164,8 @@ const Signup = () => {
             />
 			<div>
 				{error && <p className="text-orange-500">{error}</p>}
+        {loading && <Loading></Loading>}
+
 			</div>
           </div>
           <button className="block w-full p-3 text-center rounded-sm dark:text-gray-900 dark:bg-violet-400">
