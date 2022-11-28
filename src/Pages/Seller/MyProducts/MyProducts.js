@@ -4,7 +4,7 @@ import { AuthContext } from '../../../contexts/AuthProvider';
 import MyProductCard from './MyProductCard';
 
 const MyProducts = () => {
-    const {user} = useContext(AuthContext)
+    const {user, userFromDB} = useContext(AuthContext)
 
     const {data: products = [], refetch} = useQuery({
         queryKey: ['users'],

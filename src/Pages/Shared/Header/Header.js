@@ -38,7 +38,7 @@ const Header = () => {
       
       </label>
       <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-        <li><a>Item 1</a></li>
+        {/* <li><a>Item 1</a></li> */}
         <li tabIndex={0}>
           {/* <a className="justify-between">
             Parent
@@ -52,10 +52,16 @@ const Header = () => {
         <li><a>Item 3</a></li>
       </ul>
     </div>
-    <Link to='/' className="btn btn-ghost normal-case text-xl">daisyUI</Link>
+    <Link to='/' className="btn btn-ghost normal-case text-xl">Phonoshopia</Link>
   </div>
   <div className="navbar-center hidden lg:flex ml-auto mr-5">
   <ul className="menu menu-horizontal  p-0">
+     {
+      (userFromDB && userFromDB.role === 'buyer' ) &&
+
+    <li><Link to='/myorders'>My Orders</Link></li>
+
+     }        
      {
       (userFromDB && userFromDB.role === 'seller' ) &&
 

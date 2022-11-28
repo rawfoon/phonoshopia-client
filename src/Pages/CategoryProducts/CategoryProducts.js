@@ -1,11 +1,29 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React,{useContext} from 'react';
+import { AuthContext } from '../../contexts/AuthProvider';
+import BookingModal from '../Modal/BookingModal/BookingModal';
+
 import Loading from '../Shared/Loading/Loading';
 
-const CategoryProducts = ({product}) => {
-
+const CategoryProducts = ({product, setModalData}) => {
+    
+    
 
     const {conditions, category, description, image, location, name, originalPrice, phone, postedDate, resellPrice, seller, usedTime}  =product
+    const{userFromDB} = useContext(AuthContext)
+    // console.log(userFromDB);
+    // if(name === undefined){
+    //     return <Loading></Loading>
+    // }
+    // const dataForModal = {
+    //     name, 
+    //     resellPrice,
+    //     buyerName: userFromDB.name,
+    //     buyerEmail: userFromDB.email,
+
+
+    // }
+
 
     const {data: user , isLoading, refetch} = useQuery({
         queryKey: ['users'],
@@ -21,6 +39,16 @@ const CategoryProducts = ({product}) => {
         return <Loading></Loading>
     }
     refetch()
+
+
+
+    // const handleBooking =fromModal=>{
+    //     const {buyerPhone, meetLocation} = fromModal
+		
+    //     console.log('clicked',buyerPhone, meetLocation);
+        
+        
+    // } 
 
 
     return (
@@ -53,29 +81,19 @@ const CategoryProducts = ({product}) => {
     <p>Contact: {phone}</p>
     <p>Original Price: {originalPrice}tk</p>
     <p>Resell Price: <span className='text-xl text-orange-500'>{resellPrice}</span>tk</p>
-   <div className="flex justify-center"> <label htmlFor="booking-modal" className="btn btn-primary w-full ">Book Now</label></div>
+   {/* <div className="flex justify-center"> <label htmlFor="booking-modal" className="btn btn-primary w-full ">Book Now</label></div> */}
+   <label onClick={()=> setModalData(product)} htmlFor="my-modal-3" className="btn btn-primary w-full">Book Now</label>
 
 </div>
 
 </div>
+{/* <BookingModal
+name={name}
+resellPrice={resellPrice}
+handleBooking={handleBooking}></BookingModal> */}
 
 
-<section>
-    {/* The button to open modal */}
 
-
-{/* Put this part before </body> tag */}
-<input type="checkbox" id="booking-modal" className="modal-toggle" />
-<div className="modal">
-  <div className="modal-box">
-    <h3 className="font-bold text-lg">Congratulations random Internet user!</h3>
-    <p className="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
-    <div className="modal-action">
-      <label htmlFor="booking-modal" className="btn">Yay!</label>
-    </div>
-  </div>
-</div>
-</section>
     </div>
     );
 };

@@ -16,7 +16,7 @@ const Categories = () => {
     },[])
 
     return (
-        <div className='p-5'>
+        <div className='p-5 my-10'>
             <h1 className='text-3xl text-center font-bold'>Brand Categories</h1>
             <div className='grid grid-cols-2 md:grid-cols-4 gap-4 '>
             {

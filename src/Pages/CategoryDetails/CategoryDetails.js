@@ -1,13 +1,15 @@
 
-import React from 'react';
+import React,{useState} from 'react';
 import { Link, useLoaderData } from "react-router-dom";
 import Categories from '../Categories/Categories/Categories';
 import CategoryProducts from '../CategoryProducts/CategoryProducts';
+import BookingModal from '../Modal/BookingModal/BookingModal';
 
 const CategoryDetails = () => {
 
     const products = useLoaderData()
     console.log(products);
+    const [modalData, setModalData] = useState('')
 
 
 
@@ -23,10 +25,13 @@ const CategoryDetails = () => {
                 :
                 products.map(product => <CategoryProducts
                 key={product._id}
-                product={product}>
+                product={product}
+                setModalData={setModalData}>
                 </CategoryProducts>)
             }
            </div>
+           <BookingModal
+           modalData={modalData}></BookingModal>
             
         </div>
     );

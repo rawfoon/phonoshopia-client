@@ -1,8 +1,28 @@
-import React from 'react';
+import React,{ useContext} from 'react';
+import { AuthContext } from '../../../contexts/AuthProvider';
+import toast from 'react-hot-toast'
 
-const MyProductCard = ({product}) => {
-    const {conditions, category, description, image, location, name, originalPrice, phone, postedDate, resellPrice, seller, usedTime}  =product
+const MyProductCard = ({product, userFromDB}) => {
+   
+    const {_id, conditions, category, description, image, location, name, originalPrice, phone, postedDate, resellPrice, seller, usedTime ,boosted}  =product
     // console.log(product);
+
+    // console.log( userFromDB);
+    const handleBoost = () =>{
+       
+
+        fetch(`http://localhost:5000/boost/${_id}`,{
+        method: 'PUT',
+        
+    })
+    .then(res => res.json())
+    .then(data => {
+        if(data.modifiedCount > 0){
+            toast.success('Boosted')
+            // refetch();
+    }
+    })
+    }
     
     return (
         <div>
@@ -25,6 +45,14 @@ const MyProductCard = ({product}) => {
         <p>Contact: {phone}</p>
         <p>Original Price: {originalPrice}tk</p>
         <p>Resell Price: <span className='text-xl text-orange-500'>{resellPrice}</span>tk</p>
+
+       {
+           boosted ? <></> 
+           :
+            <button onClick={handleBoost} className='btn bg-blue-500 text-white'>Boost</button>
+        }
+    
+        
 
 	</div>
 	
