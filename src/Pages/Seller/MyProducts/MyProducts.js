@@ -17,13 +17,19 @@ const MyProducts = () => {
 
 
     return (
+        <div>
+            {
+                products.length === 0 && <p className='text-3xl'>You did not add any product. Please add product...</p>
+            }
+
         <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
             {
                 products.map(product => <MyProductCard 
-                key={product._id}
-                product={product}></MyProductCard>)
-            }
+                    key={product._id}
+                    product={product}></MyProductCard>)
+                }
             
+        </div>
         </div>
     );
 };

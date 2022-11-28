@@ -40,6 +40,7 @@ const AddProducts = () => {
         const phone = form.phone.value
         const conditions = form.conditions.value
         const description = form.description.value
+        const reported = false
 
         const seller = user?.email
 
@@ -95,6 +96,7 @@ const AddProducts = () => {
                         phone,
                         conditions,
                         description,
+                        reported
                                            
 
 

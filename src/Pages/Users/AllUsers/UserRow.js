@@ -9,6 +9,25 @@ const UserRow = ({ user, handleMakeAdmin, refetch}) => {
     const{_id, name , email, photoURL, role, verified} = user
 
 
+
+    const handleVerify = id =>{
+
+
+
+        fetch(`http://localhost:5000/users/verify/${id}`,{
+            method: 'PUT'
+        })
+        .then(res => res.json())
+        .then(data => {
+            if(data.modifiedCount > 0){
+                toast.success('User verified')
+                refetch();
+        }
+        })
+       }
+
+
+
     const handleDelete = id => {        
         // removeUser()
         // .then(()=>{
@@ -43,7 +62,7 @@ const UserRow = ({ user, handleMakeAdmin, refetch}) => {
         <td>{name}</td>
         <td>{email}</td>
         <td>{role}</td>
-        <td>{verified ? 'verified' : <button>Verify</button>}</td>
+        <td>{verified ? 'verified' : <button onClick={()=> handleVerify(_id)} className="btn bg-blue-500 text-white hover:bg-blue-400">Verify</button>}</td>
         <td>{role == 'admin' ? 'Admin' : <button onClick={()=>handleMakeAdmin(_id)} className="btn btn-primary">Make Admin</button>}</td>
         <td><button onClick={()=> handleDelete(_id)} className="btn btn-error ">Delete</button></td>
       </tr>

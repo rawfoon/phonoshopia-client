@@ -15,7 +15,7 @@ const CategoryProducts = ({product}) => {
             return data;
         }
     });
-    console.log('use', user, seller);
+    // console.log('use', user, seller);
 
     if (isLoading) {
         return <Loading></Loading>
@@ -31,7 +31,10 @@ const CategoryProducts = ({product}) => {
     <img alt="" src={user[0].photoURL} className="object-cover w-12 h-12 rounded-full shadow dark:bg-gray-500" />
     <div className="flex flex-col space-y-1">
     <div className="indicator">
-  <span className="indicator-item badge bg-sky-400 rounded-full  text-xs text-white"></span> 
+        { user[0]?.verified &&
+
+  <span className="indicator-item badge p-1 w-3 h-3 bg-[#3E8CF1] rounded-full  text-xs text-white">✓</span> 
+        }
  
         <p className="text-sm font-semibold">{user[0]?.name}</p>
 </div>
@@ -50,11 +53,29 @@ const CategoryProducts = ({product}) => {
     <p>Contact: {phone}</p>
     <p>Original Price: {originalPrice}tk</p>
     <p>Resell Price: <span className='text-xl text-orange-500'>{resellPrice}</span>tk</p>
-   <div className="flex justify-end"> <button className="btn btn-primary  ">Book Now</button></div>
+   <div className="flex justify-center"> <label htmlFor="booking-modal" className="btn btn-primary w-full ">Book Now</label></div>
 
 </div>
 
 </div>
+
+
+<section>
+    {/* The button to open modal */}
+
+
+{/* Put this part before </body> tag */}
+<input type="checkbox" id="booking-modal" className="modal-toggle" />
+<div className="modal">
+  <div className="modal-box">
+    <h3 className="font-bold text-lg">Congratulations random Internet user!</h3>
+    <p className="py-4">You've been selected for a chance to get one year of subscription to use Wikipedia for free!</p>
+    <div className="modal-action">
+      <label htmlFor="booking-modal" className="btn">Yay!</label>
+    </div>
+  </div>
+</div>
+</section>
     </div>
     );
 };
