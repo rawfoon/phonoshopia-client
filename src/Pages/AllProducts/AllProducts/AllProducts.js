@@ -41,7 +41,8 @@ const AllProducts = () => {
             allProducts.map((product, i)=><ProductRow
             key={i}
             i={i}
-            product={product}></ProductRow>)
+            product={product}
+            refetch={refetch}></ProductRow>)
 
 
 }

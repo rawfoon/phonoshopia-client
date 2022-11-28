@@ -50,7 +50,8 @@ const ReportedProducts = () => {
             reportedProducts.map((product, i)=><ReportedRow
             key={i}
             i={i}
-            product={product}></ReportedRow>)
+            product={product}
+            refetch={refetch}></ReportedRow>)
 
 
 }
