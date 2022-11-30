@@ -30,6 +30,7 @@ const Login = () => {
         console.log(user);
         form.reset()
         setError('')
+        navigate(from, {replace: true})
 
         const currentUser = {
           email: user.email
@@ -37,20 +38,20 @@ const Login = () => {
 
         // get jwt 
 
-        fetch(`https://globe-route-travels.vercel.app/jwt`,{
-          method: 'POST',
-          headers: {
-            'content-type': 'application/json'
-          },
-          body: JSON.stringify(currentUser)
-        })
-        .then(res => res.json())
-        .then(data=>{
-          // console.log(data);
-          localStorage.setItem('globeRoutTravelToken', data.token)
-          navigate(from, {replace: true})
-        })
-        .catch(e => console.error(e))
+        // fetch(`https://globe-route-travels.vercel.app/jwt`,{
+        //   method: 'POST',
+        //   headers: {
+        //     'content-type': 'application/json'
+        //   },
+        //   body: JSON.stringify(currentUser)
+        // })
+        // .then(res => res.json())
+        // .then(data=>{
+        //   // console.log(data);
+        //   localStorage.setItem('globeRoutTravelToken', data.token)
+        //   navigate(from, {replace: true})
+        // })
+        // .catch(e => console.error(e))
         
           
           
@@ -77,22 +78,22 @@ const Login = () => {
             email: user.email
           }
   
-          // get jwt 
+          // // get jwt 
   
-          fetch(`http://localhost:5000//jwt`,{
-            method: 'POST',
-            headers: {
-              'content-type': 'application/json'
-            },
-            body: JSON.stringify(currentUser)
-          })
-          .then(res => res.json())
-          .then(data=>{
-            // console.log(data);
-            localStorage.setItem('phonoShopiaToken', data.token)
-            // navigate(from, {replace: true})
-          })
-          .catch(e => console.error(e))
+          // fetch(`http://localhost:5000//jwt`,{
+          //   method: 'POST',
+          //   headers: {
+          //     'content-type': 'application/json'
+          //   },
+          //   body: JSON.stringify(currentUser)
+          // })
+          // .then(res => res.json())
+          // .then(data=>{
+          //   // console.log(data);
+          //   localStorage.setItem('phonoShopiaToken', data.token)
+          //   // navigate(from, {replace: true})
+          // })
+          // .catch(e => console.error(e))
   
   
   
@@ -144,7 +145,7 @@ const Login = () => {
             </div>
           </div>
           <button className="block w-full p-3 text-center rounded-sm dark:text-gray-900 dark:bg-violet-400">
-            Sign in
+            Login
           </button>
         </form>
         <div className="flex items-center pt-4 space-x-1">

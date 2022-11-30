@@ -1,12 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import React,{useContext} from 'react';
 import { AuthContext } from '../../../contexts/AuthProvider';
+import Loading from '../../Shared/Loading/Loading';
 import MyProductCard from './MyProductCard';
 
 const MyProducts = () => {
     const {user, userFromDB} = useContext(AuthContext)
 
-    const {data: products = [], refetch} = useQuery({
+    const {data: products = [], isLoading, refetch} = useQuery({
         queryKey: ['users'],
         queryFn: async() =>{
             const res = await fetch(`http://localhost:5000/products?email=${user?.email}`);
@@ -14,6 +15,12 @@ const MyProducts = () => {
             return data;
         }
     });
+
+    if(isLoading){
+        return <Loading></Loading>
+    }
+    refetch()
+
 
 
     return (
