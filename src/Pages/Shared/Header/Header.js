@@ -86,7 +86,7 @@ const Header = () => {
         <li><a>Item 3</a></li> */}
       </ul>
     </div>
-    <Link to='/' className="btn btn-ghost normal-case text-xl">Phonoshopia</Link>
+    <Link to='/' className="btn btn-ghost normal-case text-xl md:text-2xl">Phono<span className='text-violet-400'>Shopia</span></Link>
   </div>
   <div className="navbar-center hidden lg:flex ml-auto mr-5">
   <ul className="menu menu-horizontal  p-0">

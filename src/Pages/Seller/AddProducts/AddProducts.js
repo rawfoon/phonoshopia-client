@@ -2,9 +2,11 @@ import { useQuery } from '@tanstack/react-query';
 import React,{useState, useEffect, useContext} from 'react';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../../../contexts/AuthProvider';
+import useTitle from '../../../hooks/useTitle';
 
 const AddProducts = () => {
     const {user} = useContext(AuthContext)
+    useTitle('Add Products')
 
 
 

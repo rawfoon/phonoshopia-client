@@ -1,10 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import useTitle from '../../../hooks/useTitle';
 import Loading from '../../Shared/Loading/Loading';
 import ReportedRow from './ReportedRow';
 
 
 const ReportedProducts = () => {
+  useTitle('Reported Products')
     const {data: reportedProducts , isLoading, refetch} = useQuery({
         queryKey: ['users'],
         queryFn: async() =>{

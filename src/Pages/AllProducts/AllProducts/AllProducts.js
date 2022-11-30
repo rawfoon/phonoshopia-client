@@ -1,9 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
+import useTitle from '../../../hooks/useTitle';
 import Loading from '../../Shared/Loading/Loading';
 import ProductRow from './ProductRow';
 
 const AllProducts = () => {
+  useTitle('All Users')
 
 
     const {data: allProducts , isLoading, refetch} = useQuery({

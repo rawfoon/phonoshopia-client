@@ -1,11 +1,13 @@
 import { useQuery } from '@tanstack/react-query';
 import React,{useContext} from 'react';
 import { AuthContext } from '../../contexts/AuthProvider';
+import useTitle from '../../hooks/useTitle';
 import Loading from '../Shared/Loading/Loading';
 import OrderCard from './OrderCard';
 
 const MyOrder = () => {
     const { userFromDB} = useContext(AuthContext)
+    useTitle('My Orders')
 
     const {data: allProducts , isLoading, refetch} = useQuery({
         queryKey: ['users'],
