@@ -1,22 +1,54 @@
-import React from 'react';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import Loading from '../Shared/Loading/Loading';
 
-const AdvertiesCard = ({product}) => {
+const AdvertiesCard = ({product,setModalData}) => {
 
-    const {conditions, category, description, image, location, name, originalPrice, phone, postedDate, resellPrice, reported, usedTime}  =product
+    const {conditions, category, description, image, seller, location, name, originalPrice, phone, postedDate, resellPrice, reported, usedTime}  =product
 
-    const handleReport = ()=>{
+    // const handleReport = ()=>{
         
-    }
+    // }
+
+
+const [sellerData, setSellerData] = useState('')
+    useEffect(()=>{
+        axios.get(`http://localhost:5000/user?email=${seller}`)
+        .then(res=> setSellerData(res.data[0]))
+        // .then (data =>{
+        //     setSellerData(data[0]);
+            
+    // })
+        
+    },[])
+
+
+    // console.log(seller);
+
     return (
         <div>
         <div className="flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-900 dark:text-gray-100">
-{/* <div className="flex space-x-4">
-    <img alt="" src="https://source.unsplash.com/100x100/?portrait" className="object-cover w-12 h-12 rounded-full shadow dark:bg-gray-500" />
-    <div className="flex flex-col space-y-1">
-        <a rel="noopener noreferrer" href="#" className="text-sm font-semibold">Leroy Jenkins</a>
-        <span className="text-xs dark:text-gray-400">4 hours ago</span>
-    </div>
-</div> */}
+      { seller &&
+
+<div className="flex space-x-4">
+
+<img alt="" src={sellerData?.photoURL} className="object-cover w-12 h-12 rounded-full shadow dark:bg-gray-500" />
+<div className="flex flex-col space-y-1">
+<div className="indicator">
+    {sellerData?.verified &&
+
+<span className="indicator-item badge p-1 w-3 h-3 bg-[#3E8CF1] rounded-full  text-xs text-white">✓</span> 
+    }
+
+    <p className="text-sm font-semibold">{sellerData?.name}</p>
+</div>
+    <span className="text-xs dark:text-gray-400">Posted On: {postedDate}</span>
+</div>
+</div>
+
+
+      }
 <div>
     <img src={image} alt="" className="object-cover w-full mb-4 h-60 sm:h-96 dark:bg-gray-500" />
     <h2 className="mb-1 text-2xl font-semibold">{name}</h2>
@@ -34,6 +66,7 @@ const AdvertiesCard = ({product}) => {
        :
         <button onClick={handleReport} className='btn bg-blue-500 text-white'>Re</button>
     } */}
+     <label onClick={()=> setModalData(product)} htmlFor="my-modal-3" className="btn btn-primary w-full">Book Now</label>
 
     
 

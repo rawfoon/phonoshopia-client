@@ -1,15 +1,32 @@
 
+import { useQuery } from '@tanstack/react-query';
 import React,{useState} from 'react';
 import { Link, useLoaderData } from "react-router-dom";
 import Categories from '../Categories/Categories/Categories';
 import CategoryProducts from '../CategoryProducts/CategoryProducts';
 import BookingModal from '../Modal/BookingModal/BookingModal';
+import Loading from '../Shared/Loading/Loading';
 
 const CategoryDetails = () => {
 
     const products = useLoaderData()
-    console.log(products);
+    // console.log(products);
     const [modalData, setModalData] = useState('')
+
+    // const {data: products , isLoading, refetch} = useQuery({
+    //     queryKey: ['users'],
+    //     queryFn: async() =>{
+    //         const res = await fetch(`http://localhost:5000/category/${params.category}`);
+    //         const data = await res.json();
+    //         return data;
+    //     }
+    // });
+    // // console.log(users);
+    // if(isLoading){
+    //     return <Loading></Loading>
+    // }
+    // refetch()
+
 
 
 
@@ -30,8 +47,15 @@ const CategoryDetails = () => {
                 </CategoryProducts>)
             }
            </div>
+
+{
+    modalData &&
+
+
            <BookingModal
-           modalData={modalData}></BookingModal>
+           modalData={modalData}
+           setModalData={setModalData}></BookingModal>
+        }
             
         </div>
     );

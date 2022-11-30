@@ -4,13 +4,17 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 import {Link} from 'react-router-dom'
 import Loading from "../Shared/Loading/Loading";
+import { GoogleAuthProvider } from "firebase/auth";
 
 const Signup = () => {
+  const {providerLogin} = useContext(AuthContext)
 	const {createUser, updateUser} = useContext(AuthContext)
  	const [error, setError] = useState("");
   const [loading, setLoading] = useState(false)
 	// const [photoURL, setPhotoURL] = useState('')
 	// console.log(photoURL);
+  
+  const googleProvider = new GoogleAuthProvider();
 
 	 const navigate = useNavigate();
   const location = useLocation();
@@ -103,6 +107,69 @@ const Signup = () => {
 
 	
 	}
+  const handleGoogleSignIn = () => {
+    // console.log('clicked')
+    providerLogin(googleProvider)
+      .then((result) => {
+        const user = result.user;
+        console.log(user);
+        // navigate(from, { replace: true });
+        saveUserToDb(user)
+
+
+        const currentUser = {
+          email: user.email
+        }
+
+        // get jwt 
+
+        fetch(`http://localhost:5000//jwt`,{
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify(currentUser)
+        })
+        .then(res => res.json())
+        .then(data=>{
+          // console.log(data);
+          localStorage.setItem('phonoShopiaToken', data.token)
+          // navigate(from, {replace: true})
+        })
+        .catch(e => console.error(e))
+
+
+
+
+
+
+      })
+      .catch((error) => console.error(error));
+
+      const saveUserToDb = (user)=> {
+
+        const dbUser ={name: user.displayName, email: user.email, photoURL: user.photoURL, role: 'buyer'};
+        console.log(dbUser);
+        fetch('http://localhost:5000/users', {
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify(dbUser)
+        })
+        .then(res => res.json())
+        .then(data =>{
+          // console.log(data);
+          setLoading(false)
+          toast.success('SignUp Successful')
+              navigate(from, { replace: true });
+    
+        // form.reset();
+    
+        })
+      }
+  };
+
 
 
   return (
@@ -180,7 +247,7 @@ const Signup = () => {
           <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
         </div>
         <div className="flex justify-center space-x-4">
-          <button aria-label="Log in with Google" className="p-3 rounded-sm">
+          <button onClick={handleGoogleSignIn} aria-label="Log in with Google" className="p-3 rounded-sm">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 32 32"

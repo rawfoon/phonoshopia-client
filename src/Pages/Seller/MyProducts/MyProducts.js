@@ -22,14 +22,47 @@ const MyProducts = () => {
                 products.length === 0 && <p className='text-3xl'>You did not add any product. Please add product...</p>
             }
 
-        <div className='grid grid-cols-1 md:grid-cols-3 gap-5'>
-            {
-                products.map(product => <MyProductCard 
-                    key={product._id}
-                    product={product}></MyProductCard>)
-                }
+
+         {   
+         products.length > 0 &&
+
+            <div className="overflow-x-auto">
+  <table className="table w-full">
+    {/* <!-- head --> */}
+    <thead>
+      <tr>
+        <th></th>
+        <th></th>
+        <th>Name</th>
+        <th>Status</th>
+        <th>Buyer</th>
+        <th>Boost</th>
+    
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+      {
+      
+
+        products.map((product, i) => <MyProductCard
+        
+        key={product._id}
+        product={product}
+        i={i}
+        refetch={refetch}></MyProductCard>)
+    
+       
+      }
+      
+      
+    </tbody>
+  </table>
+</div>
+}
             
-        </div>
+   
         </div>
     );
 };

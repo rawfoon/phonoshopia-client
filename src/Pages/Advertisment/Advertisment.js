@@ -1,9 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React,{useState} from 'react';
+import BookingModal from '../Modal/BookingModal/BookingModal';
 import Loading from '../Shared/Loading/Loading';
 import AdvertiesCard from './AdvertiesCard';
 
 const Advertisment = () => {
+    const [modalData, setModalData] = useState('')
 
 
 
@@ -25,18 +27,31 @@ const Advertisment = () => {
     console.log(allProducts);
     refetch()
     return (
-        <div className='p-5 my-10'>
+        <div className='p-5 my-10 bg-gray-800'>
             <h1 className='text-3xl text-center font-bold'>Advertiesment</h1>
             <div className='grid grid-cols-2 md:grid-cols-4 gap-4 '>
            {
             allProducts.map(product => <AdvertiesCard
             key={product._id}
-            product={product}></AdvertiesCard>)
+            product={product}
+            setModalData={setModalData}></AdvertiesCard>)
             
            }
-            
+
+</div>
+           {
+            modalData &&
+               
+               
+               
+        <BookingModal
+        modalData={modalData}
+        setModalData={setModalData}></BookingModal>
+
+           }
         </div>
-        </div>
+
+    
     );
 };
 

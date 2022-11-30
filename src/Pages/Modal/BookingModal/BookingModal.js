@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../../../contexts/AuthProvider";
 import toast from 'react-hot-toast'
 
-const BookingModal = ({  handleBooking, refetch , modalData}) => {
+const BookingModal = ({  handleBooking, refetch , modalData, setModalData}) => {
   const { userFromDB } = useContext(AuthContext);
 
   const {
@@ -11,7 +11,7 @@ const BookingModal = ({  handleBooking, refetch , modalData}) => {
         _id
 
   } =modalData
-  console.log(modalData);
+//   console.log(modalData);
 
 
 
@@ -22,6 +22,7 @@ const BookingModal = ({  handleBooking, refetch , modalData}) => {
     const meetLocation = form.location.value
     // const fromModal = {buyerPhone, meetLocation}
     console.log(buyerPhone, meetLocation);
+    console.log(setModalData());
 
     const updateData = {
         buyerPhone,
@@ -107,7 +108,7 @@ const BookingModal = ({  handleBooking, refetch , modalData}) => {
 
         
   <div className="flex flex-col justify-center gap-3 mt-6 sm:flex-row">
-      <button  type="submit" htmlFor='my-modal-3'  className="px-6 py-2  rounded-sm shadow-sm  dark:bg-violet-400 dark:text-gray-900">Agree</button>
+      <button  type="submit" htmlFor='my-modal-3'  className="px-6 py-2  rounded-sm shadow-sm  dark:bg-violet-400 dark:text-gray-900">Book</button>
       {/* <button htmlFor="my-modal-3"  className="px-6 py-2  rounded-sm">Cancel</button> */}
   </div>
         </form>

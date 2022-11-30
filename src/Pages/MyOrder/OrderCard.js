@@ -20,7 +20,7 @@ const OrderCard = ({product, refetch}) => {
     }
 
     return (
-        <div>
+        <div className=''>
         <div className="flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-900 dark:text-gray-100">
 {/* <div className="flex space-x-4">
     <img alt="" src="https://source.unsplash.com/100x100/?portrait" className="object-cover w-12 h-12 rounded-full shadow dark:bg-gray-500" />
@@ -41,11 +41,18 @@ const OrderCard = ({product, refetch}) => {
     <p>Original Price: {originalPrice}tk</p>
     <p>Resell Price: <span className='text-xl text-orange-500'>{resellPrice}</span>tk</p>
 
+    {
+        !reported  ? <></> 
+        :
+         <button  className='btn bg-blue-500 mr-3 text-white'>Check Out</button>
+     }
    {
        reported === "true" ? <></> 
        :
         <button onClick={handleReport} className='btn bg-red-500 text-white'>Report</button>
     }
+
+    
 
     
 

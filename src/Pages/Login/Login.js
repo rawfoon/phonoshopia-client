@@ -1,10 +1,11 @@
+import { GoogleAuthProvider } from "firebase/auth";
 import React,{ useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contexts/AuthProvider";
 
 const Login = () => {
 
-    const {signIn, setLoading} = useContext(AuthContext)
+    const {signIn, setLoading, providerLogin} = useContext(AuthContext)
 
     const [error, setError] = useState('')
 
@@ -12,6 +13,7 @@ const Login = () => {
     const location = useLocation()
   
     const from = location.state?.from?.pathname || '/'
+    const googleProvider = new GoogleAuthProvider();
 
 
     const handleLogin = event => {
@@ -35,20 +37,20 @@ const Login = () => {
 
         // get jwt 
 
-        // fetch(`https://globe-route-travels.vercel.app/jwt`,{
-        //   method: 'POST',
-        //   headers: {
-        //     'content-type': 'application/json'
-        //   },
-        //   body: JSON.stringify(currentUser)
-        // })
-        // .then(res => res.json())
-        // .then(data=>{
-        //   // console.log(data);
-        //   localStorage.setItem('globeRoutTravelToken', data.token)
+        fetch(`https://globe-route-travels.vercel.app/jwt`,{
+          method: 'POST',
+          headers: {
+            'content-type': 'application/json'
+          },
+          body: JSON.stringify(currentUser)
+        })
+        .then(res => res.json())
+        .then(data=>{
+          // console.log(data);
+          localStorage.setItem('globeRoutTravelToken', data.token)
           navigate(from, {replace: true})
-        // })
-        // .catch(e => console.error(e))
+        })
+        .catch(e => console.error(e))
         
           
           
@@ -62,7 +64,46 @@ const Login = () => {
         setLoading(false)
       })
     }
-
+    const handleGoogleSignIn = () => {
+      // console.log('clicked')
+      providerLogin(googleProvider)
+        .then((result) => {
+          const user = result.user;
+          console.log(user);
+          navigate(from, { replace: true });
+         
+  
+          const currentUser = {
+            email: user.email
+          }
+  
+          // get jwt 
+  
+          fetch(`http://localhost:5000//jwt`,{
+            method: 'POST',
+            headers: {
+              'content-type': 'application/json'
+            },
+            body: JSON.stringify(currentUser)
+          })
+          .then(res => res.json())
+          .then(data=>{
+            // console.log(data);
+            localStorage.setItem('phonoShopiaToken', data.token)
+            // navigate(from, {replace: true})
+          })
+          .catch(e => console.error(e))
+  
+  
+  
+  
+  
+  
+        })
+        .catch((error) => console.error(error));
+  
+       
+    };
 
   return (
     <div className="flex pt-10 mt-16 justify-center">
@@ -114,7 +155,7 @@ const Login = () => {
           <div className="flex-1 h-px sm:w-16 dark:bg-gray-700"></div>
         </div>
         <div className="flex justify-center space-x-4">
-          <button aria-label="Log in with Google" className="p-3 rounded-sm">
+          <button onClick={handleGoogleSignIn} aria-label="Log in with Google" className="p-3 rounded-sm">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 32 32"
