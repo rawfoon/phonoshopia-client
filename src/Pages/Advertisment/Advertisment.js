@@ -29,7 +29,7 @@ const Advertisment = () => {
     return (
         <div className='p-5 my-10 bg-gray-800'>
             <h1 className='text-3xl text-center font-bold'>Advertiesment</h1>
-            <div className='grid grid-cols-2 md:grid-cols-4 gap-4 '>
+            <div className='grid grid-cols-1 md:grid-cols-4 gap-4 '>
            {
             allProducts.map(product => <AdvertiesCard
             key={product._id}
