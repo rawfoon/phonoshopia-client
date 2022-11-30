@@ -14,7 +14,7 @@ const UserRow = ({ user, handleMakeAdmin, refetch}) => {
 
 
 
-        fetch(`http://localhost:5000/users/verify/${id}`,{
+        fetch(`https://phono-shopia.vercel.app/users/verify/${id}`,{
             method: 'PUT'
         })
         .then(res => res.json())
@@ -38,7 +38,7 @@ const UserRow = ({ user, handleMakeAdmin, refetch}) => {
        
 
             
-        fetch(`http://localhost:5000/users/${id}`,{
+        fetch(`https://phono-shopia.vercel.app/users/${id}`,{
             method: 'Delete'
         })
         .then(res => res.json())

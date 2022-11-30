@@ -10,7 +10,7 @@ const MyProducts = () => {
     const {data: products = [], isLoading, refetch} = useQuery({
         queryKey: ['users'],
         queryFn: async() =>{
-            const res = await fetch(`http://localhost:5000/products?email=${user?.email}`);
+            const res = await fetch(`https://phono-shopia.vercel.app/products?email=${user?.email}`);
             const data = await res.json();
             return data;
         }

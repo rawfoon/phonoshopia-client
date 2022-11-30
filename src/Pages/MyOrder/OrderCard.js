@@ -7,7 +7,7 @@ const OrderCard = ({product, refetch}) => {
     console.log(reported);
 
     const handleReport = () =>{
-        fetch(`http://localhost:5000/report/${_id}`,{
+        fetch(`https://phono-shopia.vercel.app/report/${_id}`,{
             method: 'PUT'
         })
         .then(res => res.json())

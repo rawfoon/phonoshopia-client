@@ -56,7 +56,7 @@ const AuthProvider = ({children}) => {
     // }
 
     useEffect(()=> {
-        fetch(`http://localhost:5000/user?email=${user?.email}`)
+        fetch(`https://phono-shopia.vercel.app/user?email=${user?.email}`)
         .then(res => res.json())
         .then( data => {
             // console.log('con',data[0]);

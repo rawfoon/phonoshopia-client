@@ -13,7 +13,7 @@ const AllUsers = () => {
     const {data: users , isLoading, refetch} = useQuery({
         queryKey: ['users'],
         queryFn: async() =>{
-            const res = await fetch(`http://localhost:5000/users`);
+            const res = await fetch(`https://phono-shopia.vercel.app/users`);
             const data = await res.json();
             return data;
         }
@@ -32,7 +32,7 @@ const AllUsers = () => {
 
 
 
-        fetch(`http://localhost:5000/users/${id}`,{
+        fetch(`https://phono-shopia.vercel.app/users/${id}`,{
             method: 'PUT'
         })
         .then(res => res.json())

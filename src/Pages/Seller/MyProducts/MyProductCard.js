@@ -13,7 +13,7 @@ const MyProductCard = ({product, i, refetch}) => {
     const handleBoost = () =>{
        
 
-        fetch(`http://localhost:5000/boost/${_id}`,{
+        fetch(`https://phono-shopia.vercel.app/boost/${_id}`,{
         method: 'PUT',
         
     })
@@ -30,7 +30,7 @@ const MyProductCard = ({product, i, refetch}) => {
      
 
         console.log('clicked delete');
-        fetch(`http://localhost:5000/products/${_id}`,{
+        fetch(`https://phono-shopia.vercel.app/products/${_id}`,{
             method: 'Delete'
         })
         .then(res => res.json())

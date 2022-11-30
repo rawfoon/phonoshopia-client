@@ -23,7 +23,7 @@ const ReportedRow = ({product, i, refetch}) => {
           
     
                 
-            fetch(`http://localhost:5000/products/${id}`,{
+            fetch(`https://phono-shopia.vercel.app/products/${id}`,{
                 method: 'Delete'
             })
             .then(res => res.json())

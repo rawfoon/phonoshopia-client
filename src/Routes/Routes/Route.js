@@ -3,6 +3,7 @@ import DashboardLayout from "../../Layout/DashboardLayout";
 import Main from "../../Layout/Main";
 import AllProducts from "../../Pages/AllProducts/AllProducts/AllProducts";
 import ReportedProducts from "../../Pages/AllProducts/ReportedProducts/ReportedProducts";
+import Blogs from "../../Pages/Blog/Blogs";
 import CategoryDetails from "../../Pages/CategoryDetails/CategoryDetails";
 import Dashboard from "../../Pages/Dashboard/Dashboard";
 import Home from "../../Pages/Home/Home/Home";
@@ -33,13 +34,17 @@ export const routes = createBrowserRouter([
                 element: <Login></Login>
             },
             {
+                path: '/blogs',
+                element: <Blogs></Blogs>
+            },
+            {
                 path: '/myorders',
                 element: <PrivateRoute><MyOrder></MyOrder></PrivateRoute>
             },
             {
                 path: '/category/:category',
                 element: <PrivateRoute><CategoryDetails></CategoryDetails></PrivateRoute>,
-                loader: ({params})=> fetch(`http://localhost:5000/category/${params.category}`)
+                loader: ({params})=> fetch(`https://phono-shopia.vercel.app/category/${params.category}`)
             }
         ]
     },

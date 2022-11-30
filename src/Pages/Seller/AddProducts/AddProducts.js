@@ -18,7 +18,7 @@ const AddProducts = () => {
     
 
     useEffect(()=>{
-        fetch(`http://localhost:5000/categories`)
+        fetch(`https://phono-shopia.vercel.app/categories`)
         .then(res => res.json())
         .then(data => {
             setCategories(data)
@@ -102,7 +102,7 @@ const AddProducts = () => {
 
             }
             console.log(product);
-			fetch('http://localhost:5000/product', {
+			fetch('https://phono-shopia.vercel.app/product', {
 				method: 'POST',
 				headers: {
 					'content-type': 'application/json'

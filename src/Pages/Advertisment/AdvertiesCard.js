@@ -14,7 +14,7 @@ const AdvertiesCard = ({product,setModalData}) => {
 
 const [sellerData, setSellerData] = useState('')
     useEffect(()=>{
-        axios.get(`http://localhost:5000/user?email=${seller}`)
+        axios.get(`https://phono-shopia.vercel.app/user?email=${seller}`)
         .then(res=> setSellerData(res.data[0]))
         // .then (data =>{
         //     setSellerData(data[0]);

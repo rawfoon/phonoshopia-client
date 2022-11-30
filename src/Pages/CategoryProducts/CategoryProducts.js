@@ -28,7 +28,7 @@ const CategoryProducts = ({product, setModalData}) => {
     const {data: user , isLoading, refetch} = useQuery({
         queryKey: ['users'],
         queryFn: async() =>{
-            const res = await fetch(`http://localhost:5000/user?email=${seller}`);
+            const res = await fetch(`https://phono-shopia.vercel.app/user?email=${seller}`);
             const data = await res.json();
             return data;
         }

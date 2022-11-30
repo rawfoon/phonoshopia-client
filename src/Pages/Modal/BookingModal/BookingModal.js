@@ -35,7 +35,7 @@ const BookingModal = ({  handleBooking, refetch , modalData, setModalData}) => {
     }
 
     
-    fetch(`http://localhost:5000/book/${_id}`,{
+    fetch(`https://phono-shopia.vercel.app/book/${_id}`,{
         method: 'PUT',
         headers: {
             'content-type' : 'application/json'

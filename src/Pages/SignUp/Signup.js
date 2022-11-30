@@ -84,7 +84,7 @@ const Signup = () => {
 
 			const user ={name, email, photoURL, role};
       console.log(user);
-			fetch('http://localhost:5000/users', {
+			fetch('https://phono-shopia.vercel.app/users', {
 				method: 'POST',
 				headers: {
 					'content-type': 'application/json'
@@ -123,7 +123,7 @@ const Signup = () => {
 
         // // get jwt 
 
-        // fetch(`http://localhost:5000//jwt`,{
+        // fetch(`https://phono-shopia.vercel.app//jwt`,{
         //   method: 'POST',
         //   headers: {
         //     'content-type': 'application/json'
@@ -150,7 +150,7 @@ const Signup = () => {
 
         const dbUser ={name: user.displayName, email: user.email, photoURL: user.photoURL, role: 'buyer'};
         console.log(dbUser);
-        fetch('http://localhost:5000/users', {
+        fetch('https://phono-shopia.vercel.app/users', {
           method: 'POST',
           headers: {
             'content-type': 'application/json'

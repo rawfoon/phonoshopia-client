@@ -10,7 +10,7 @@ const MyOrder = () => {
     const {data: allProducts , isLoading, refetch} = useQuery({
         queryKey: ['users'],
         queryFn: async() =>{
-            const res = await fetch(`http://localhost:5000/allproducts?buyer=${userFromDB?.email}`);
+            const res = await fetch(`https://phono-shopia.vercel.app/allproducts?buyer=${userFromDB?.email}`);
             const data = await res.json();
             return data;
         }
