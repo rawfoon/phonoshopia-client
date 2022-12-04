@@ -56,7 +56,7 @@ const CategoryProducts = ({product, setModalData}) => {
         <div className="flex flex-col max-w-lg p-6 space-y-6 overflow-hidden rounded-lg shadow-md dark:bg-gray-900 dark:text-gray-100">
 <div className="flex space-x-4">
 
-    <img alt="" src={user[0].photoURL} className="object-cover w-12 h-12 rounded-full shadow dark:bg-gray-500" />
+    <img alt="" src={user[0]?.photoURL} className="object-cover w-12 h-12 rounded-full shadow dark:bg-gray-500" />
     <div className="flex flex-col space-y-1">
     <div className="indicator">
         { user[0]?.verified &&

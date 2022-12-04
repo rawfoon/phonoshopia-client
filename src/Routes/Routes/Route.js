@@ -6,6 +6,7 @@ import ReportedProducts from "../../Pages/AllProducts/ReportedProducts/ReportedP
 import Blogs from "../../Pages/Blog/Blogs";
 import CategoryDetails from "../../Pages/CategoryDetails/CategoryDetails";
 import Dashboard from "../../Pages/Dashboard/Dashboard";
+import Error from "../../Pages/Error/Error";
 import Home from "../../Pages/Home/Home/Home";
 import Login from "../../Pages/Login/Login";
 import MyOrder from "../../Pages/MyOrder/MyOrder";
@@ -20,6 +21,7 @@ export const routes = createBrowserRouter([
     {
         path: '/',
         element: <Main></Main>,
+        // errorElement: <Error></Error>,
         children: [
             {
                 path: '/',
@@ -51,6 +53,7 @@ export const routes = createBrowserRouter([
     {
         path: '/dashboard',
         element: <PrivateRoute><DashboardLayout></DashboardLayout></PrivateRoute>,
+        errorElement: <Error></Error>,
         children: [
             {
                 path: '/dashboard',
